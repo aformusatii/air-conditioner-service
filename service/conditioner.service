@@ -1,0 +1,14 @@
+[Unit]
+Description=Air Conditioner Service
+After=network.target
+
+[Service]
+ExecStart=/home/aform/repository/air-conditioner-service/conditioner.sh
+WorkingDirectory=/home/aform/repository/air-conditioner-service
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=aform
+
+[Install]
+WantedBy=multi-user.target
