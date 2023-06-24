@@ -1,7 +1,7 @@
 /* *****************************************************************************
 *  Main Controller
 * *****************************************************************************/
-const MainController = function($rootScope, $scope, $http) {
+const MainController = function($scope, $http) {
     console.log('MainController');
 
     $scope.acProperties = {};
@@ -22,7 +22,9 @@ const MainController = function($rootScope, $scope, $http) {
         setProperties($scope, $http);
     }
 
-    loadProperties($rootScope, $scope, $http);
+    loadProperties($scope, $http);
+
+    window.addEventListener('focus', onShowPage($scope, $http));
 }
 
 const changeHandler = function($scope, $http) {
@@ -45,9 +47,7 @@ const changeHandler = function($scope, $http) {
     return handler;
 }
 
-
-
-const loadProperties = function($rootScope, $scope, $http) {
+const loadProperties = function($scope, $http) {
 
     $http({
         method: 'GET',
@@ -64,6 +64,8 @@ const loadProperties = function($rootScope, $scope, $http) {
         $scope.acProperties.turbo = toTrueFalse(acProperties.turbo);
         $scope.acProperties.sleep = toTrueFalse(acProperties.sleep);
 
+        showInfo('Loaded.');
+
     }, function errorCallback(response) {
         showError(response);
     });
@@ -79,6 +81,8 @@ const setProperties = function($scope, $http) {
             power: toOnOff($scope.acProperties.power),
             quiet: toOnOff($scope.acProperties.quiet),
             lights: toOnOff($scope.acProperties.lights),
+            turbo: toOnOff($scope.acProperties.turbo),
+            sleep: toOnOff($scope.acProperties.sleep),
             fanSpeed: $scope.acProperties.fanSpeed,
             temperature: $scope.acProperties.temperature,
             swingVert: $scope.acProperties.swingVert
@@ -89,4 +93,13 @@ const setProperties = function($scope, $http) {
     }, function errorCallback(response) {
         showError(response);
     });
+}
+
+const onShowPage = function($scope, $http) {
+
+    const handler = function() {
+        loadProperties($scope, $http);
+    }
+
+    return handler;
 }
