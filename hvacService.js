@@ -9,20 +9,30 @@ const GreeHVACClient = require('./GreeHVACClient');
 
 const greeHVACClient = new GreeHVACClient(CONFIG);
 
+let globalProperties;
+
 app.use(bodyParser.json());
 app.disable('etag');
 
 app.get('/properties', (req, res) => {
-    const properties = greeHVACClient.getProperties();
-    res.json(properties);
+    globalProperties = greeHVACClient.getProperties();
+    res.json(globalProperties);
 });
 
 app.post('/properties', (req, res) => {
     try {
+        console.log('================================');
         for (const prop in req.body) {
-            const value = req.body[prop];
-            console.log(`prop[${prop}]=${value}`);
-            greeHVACClient.setProperty(prop, value);
+            const newValue = req.body[prop];
+            const oldValue = globalProperties[prop];
+
+            if (newValue !== oldValue) {
+                console.log(`prop[${prop}]=${newValue}`);
+                globalProperties[prop] = newValue;
+            }
+
+
+            //greeHVACClient.setProperty(prop, value);
         }
         
         res.json(req.body);
@@ -30,5 +40,7 @@ app.post('/properties', (req, res) => {
         res.status(500).send(`Error: [${ex}]`);
     }
 });
+
+app.use(express.static('static'))
 
 app.listen(CONFIG.httpPort, () => console.log(`Server listening on port: ${CONFIG.httpPort}`));
