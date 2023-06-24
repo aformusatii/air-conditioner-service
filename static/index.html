@@ -83,6 +83,9 @@
 
                 <input type="radio" class="btn-check" ng-model="acProperties.fanSpeed" value="high" name="options" id="option3" autocomplete="off">
                 <label class="btn btn-primary" for="option3">High</label>
+                
+                <input type="radio" class="btn-check" ng-model="acProperties.fanSpeed" value="auto" name="options" id="option4" autocomplete="off">
+                <label class="btn btn-primary" for="option4">Auto</label>
             </div>
         </div>
 
@@ -98,7 +101,13 @@
 
         <div class="m-row clearfix">
             <div class="m-label">Swing Vertical</div>
-            <div class="m-value">{{acProperties.swingVert}}</div>
+            <div class="m-value">
+                <input type="radio" class="btn-check" ng-model="acProperties.swingVert" value="default" name="options" id="swing_option1" autocomplete="off">
+                <label class="btn btn-primary" for="swing_option1">None</label>
+
+                <input type="radio" class="btn-check" ng-model="acProperties.swingVert" value="full" name="options" id="swing_option2" autocomplete="off">
+                <label class="btn btn-primary" for="swing_option2">Full</label>
+            </div>
         </div>
 
         <div class="m-row clearfix">

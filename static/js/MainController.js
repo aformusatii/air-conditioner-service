@@ -10,6 +10,7 @@ const MainController = function($rootScope, $scope, $http) {
     $scope.$watch('acProperties.quiet', changeHandler($scope, $http));
     $scope.$watch('acProperties.lights', changeHandler($scope, $http));
     $scope.$watch('acProperties.fanSpeed', changeHandler($scope, $http));
+    $scope.$watch('acProperties.swingVert', changeHandler($scope, $http));
 
     $scope.increaseTemperature = function() {
         $scope.acProperties.temperature++;
@@ -79,7 +80,8 @@ const setProperties = function($scope, $http) {
             quiet: toOnOff($scope.acProperties.quiet),
             lights: toOnOff($scope.acProperties.lights),
             fanSpeed: $scope.acProperties.fanSpeed,
-            temperature: $scope.acProperties.temperature
+            temperature: $scope.acProperties.temperature,
+            swingVert: $scope.acProperties.swingVert
         }
     }).then(function successCallback(response) {
         showInfo('Applied.');

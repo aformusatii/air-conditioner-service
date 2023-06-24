@@ -29,10 +29,9 @@ app.post('/properties', (req, res) => {
             if (newValue !== oldValue) {
                 console.log(`prop[${prop}]=${newValue}`);
                 globalProperties[prop] = newValue;
+                
+                greeHVACClient.setProperty(prop, newValue);
             }
-
-
-            //greeHVACClient.setProperty(prop, value);
         }
         
         res.json(req.body);
