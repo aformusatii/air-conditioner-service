@@ -1,0 +1,14 @@
+services:
+  camera1:
+    image: node:14
+    container_name: air_conditioner
+    restart: unless-stopped
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "8010:3100"
+    working_dir: /usr/src/app
+    environment:
+      TZ: Europe/Chisinau
+    command: ["node", "hvacService.js"]
+    user: "1000:1000"
